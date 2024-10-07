@@ -12,9 +12,10 @@ import ErrorItem from "./ErrorItem";
 type Props = {
   togglePasswordVisibility: () => void;
   submitForm: () => void;
-  passwordState: boolean;
-  inputsValue: IUserForm;
   valueChange: (change: IInputsChange) => void;
+  passwordState: boolean;
+  isRegistering: boolean;
+  inputsValue: IUserForm;
   errors?: IErrors;
 };
 
@@ -76,15 +77,28 @@ const RegistrationForm = (props: Props) => {
       {props.errors?.password && props.errors.password.length >= 1 && (
         <ErrorItem errors={props.errors.password} />
       )}
-      <div className="flex items-center gap-3">
-        <Checkbox />
+      <div className="flex items-center gap-3 mb-5">
+        <Checkbox
+          onChange={(e) =>
+            props.valueChange({
+              InputName: "isAgreeTerm",
+              value: e.target.checked,
+            })
+          }
+          checked={props.inputsValue.isAgreeTerm}
+        />
         <label className="text-lg font-semibold text-gray-600">
           I agree with <span className="text-red-600">Terms</span> and{" "}
           <span className="text-red-600">Privacy</span>
         </label>
       </div>
+      {props.errors?.isAgreeTerm && props.errors.isAgreeTerm.length >= 1 && (
+        <ErrorItem errors={props.errors.isAgreeTerm} />
+      )}
       <Button isOutlineBtn={false}>
-        <span className="text-white text-lg ">SIGN UP</span>
+        <span className="text-white text-lg ">
+          {props.isRegistering ? "REGISTERING..." : "SIGN UP"}
+        </span>
       </Button>
       <Button type="button" isOutlineBtn={true}>
         <span className="flex justify-center">

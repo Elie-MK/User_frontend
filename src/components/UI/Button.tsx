@@ -13,7 +13,7 @@ const Button = ({ isOutlineBtn, ...props }: Props) => {
   ) : (
     <button
       {...props}
-      className="w-full text-center p-4 rounded-xl bg-red-600 shadow-xl mt-10 "
+      className="w-full text-center p-4 rounded-xl bg-red-600 shadow-xl mt-5 "
     ></button>
   );
 };

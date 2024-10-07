@@ -1,4 +1,4 @@
 export interface IInputsChange {
   InputName: string;
-  value: string;
+  value: string | boolean | undefined;
 }

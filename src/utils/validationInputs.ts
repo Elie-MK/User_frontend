@@ -2,7 +2,7 @@ import { IUserForm } from "../interfaces/IUserForm";
 import { IValidationResult } from "../interfaces/IValidationResult";
 
 export const validateForm = (formData: IUserForm): IValidationResult => {
-  const { name, email, password } = formData;
+  const { name, email, password, isAgreeTerm } = formData;
   const errors: IValidationResult["errors"] = {};
 
   // Validate Name
@@ -35,6 +35,12 @@ export const validateForm = (formData: IUserForm): IValidationResult => {
   } else if (!passwordPattern.test(password)) {
     errors.password = errors.password || [];
     errors.password.push("Password must only contain alphabets and numbers.");
+  }
+
+  // Validate isAgreeTerm
+  if (!isAgreeTerm) {
+    errors.isAgreeTerm = errors.isAgreeTerm || [];
+    errors.isAgreeTerm.push("You must agree to the terms and privacy.");
   }
 
   const isValid = Object.keys(errors).length === 0;
