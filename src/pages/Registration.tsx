@@ -6,8 +6,11 @@ import { validateForm } from "../utils/validationInputs";
 import { IErrors } from "../interfaces/IValidationResult";
 import axios from "axios";
 import { DEFAULT_API_URL } from "../utils/constants";
+import { useDispatch } from "react-redux";
+import { isConnected } from "../store/connectedSlice";
 
 function Registration() {
+  const dispatch = useDispatch();
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const [isRegistering, setIsRegistering] = useState<boolean>(false);
   const [formDatas, setFormDatas] = useState<IUserForm>({
@@ -56,8 +59,8 @@ function Registration() {
         const response = await axios.post(DEFAULT_API_URL, formDatas);
         if (response.status == 201) {
           setIsRegistering(false);
-          console.log(response.data);
           handleResetForm();
+          dispatch(isConnected(true));
         }
       } catch (error) {
         console.log(error);
